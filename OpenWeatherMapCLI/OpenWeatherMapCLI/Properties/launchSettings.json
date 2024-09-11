@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "OpenWeatherMapCLI": {
+      "commandName": "Project",
+      "commandLineArgs": "\"43512\" \"Defiance,Ohio,USA\""
+    }
+  }
+}
