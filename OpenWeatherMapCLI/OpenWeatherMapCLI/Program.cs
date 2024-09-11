@@ -28,7 +28,7 @@
             }
             else
             {
-                bool isCityState = location.Contains(",");
+                bool isCityState = location.Contains(',');
                 if (isCityState)
                 {
                     try
