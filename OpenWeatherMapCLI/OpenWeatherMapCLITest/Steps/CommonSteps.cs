@@ -16,20 +16,24 @@ namespace OpenWeatherMapCLITest.Steps
     internal class CommonSteps
     {
         private string programResponse { get; set; }
+
         [Given(@"I am a user")]
         public void GivenIAmAUser()
         {
         }
+
         [When(@"I send zip code (.*)")]
         public void WhenISendZipCode(string zipCode)
         {
             programResponse = RunProcess(new List<string>() { zipCode });
         }
+
         [When(@"I send city and state (.*)")]
         public void WhenISendCityAndState(string cityState)
         {
             programResponse = RunProcess(new List<string>() { cityState });
         }
+
         [Then(@"I should get coordinates (.*) and (.*)")]
         public void ThenIShouldGetCoordinates(string latitude, string longitude)
         {
@@ -41,11 +45,13 @@ namespace OpenWeatherMapCLITest.Steps
             Assert.That(coordinates.Latitude.StartsWith(latitude), $"Expected Latitude {latitude}, but received {coordinates.Latitude}");
             Assert.That(coordinates.Longitude.StartsWith(longitude), $"Expected Longitude {longitude}, but received {coordinates.Longitude}");
         }
+
         [Then(@"I should get an error message (.*)")]
         public void ThenIShouldGetCoordinates(string error)
         {
             Assert.That(programResponse.Equals(error), $"Expected message {error}, but received {programResponse}");
         }
+
         private static string RunProcess(List<string> args)
         {
             StringBuilder outputBuilder;
@@ -88,6 +94,7 @@ namespace OpenWeatherMapCLITest.Steps
             string output = outputBuilder.ToString();
             return output;
         }
+
         private static Coordinates ParseCoordinates(string responseBody)
         {
             var lonLat = responseBody.Split(",");
@@ -100,6 +107,7 @@ namespace OpenWeatherMapCLITest.Steps
             };
         }
     }
+
     public class Coordinates
     {
         public string Longitude { get; set; }

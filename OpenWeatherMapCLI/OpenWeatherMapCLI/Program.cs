@@ -1,16 +1,17 @@
 ﻿namespace OpenWeatherMapCLI
 {
     using OpenWeatherMap;
+
     internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             foreach (var item in args)
             {
                 Console.WriteLine(GetCoordinates(item));
-
             }
         }
+
         public static string GetCoordinates(string location)
         {
             bool isZipCode = int.TryParse(location, out int zipCode);

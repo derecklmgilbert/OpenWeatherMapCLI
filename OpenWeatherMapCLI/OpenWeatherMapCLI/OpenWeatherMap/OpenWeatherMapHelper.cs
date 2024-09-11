@@ -1,10 +1,5 @@
 ﻿using Newtonsoft.Json;
 using RestSharp;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OpenWeatherMapCLI.OpenWeatherMap
 {
@@ -12,10 +7,12 @@ namespace OpenWeatherMapCLI.OpenWeatherMap
     {
         private IRestClient _restClient;
         private const string _apiKey = "";
+
         public OpenWeatherMapHelper()
         {
             _restClient = new RestClient("http://api.openweathermap.org/geo/1.0");
         }
+
         public Coordinates GetCoordinatesFromZip(string zipCode)
         {
             var request = new RestRequest($"zip?zip={zipCode}&appid={_apiKey}", Method.Get);
@@ -29,11 +26,12 @@ namespace OpenWeatherMapCLI.OpenWeatherMap
                 throw new Exception("Failed to get coordinates from zip code");
             }
         }
+
         public Coordinates GetCoordinatesFromCityState(string cityState)
         {
             var request = new RestRequest($"direct?q={cityState}&limit=1&appid={_apiKey}", Method.Get);
             var response = _restClient.Execute(request);
-            
+
             if (response.IsSuccessful)
             {
                 return JsonConvert.DeserializeObject<List<Coordinates>>(response.Content).First();
@@ -44,10 +42,12 @@ namespace OpenWeatherMapCLI.OpenWeatherMap
             }
         }
     }
-    public class Coordinates() 
+
+    public class Coordinates()
     {
         [JsonProperty("lon")]
         public string Longitude { get; set; }
+
         [JsonProperty("lat")]
         public string Latitude { get; set; }
 
@@ -56,5 +56,4 @@ namespace OpenWeatherMapCLI.OpenWeatherMap
             return $"Longitude: {Longitude}, Latitude: {Latitude}";
         }
     }
-
 }
